@@ -1,0 +1,10 @@
+{
+    "name": "lepus/lepus",
+    "description": "Behat extention for RabbitMQ",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "behat/behat": "^3.0",
+        "videlalvaro/php-amqplib": "^2.6"
+    }
+}
