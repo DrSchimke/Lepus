@@ -54,6 +54,13 @@ class LepusContext implements Context
     }
 
     /**
+     * @Given the queue :queue is empty
+     */
+    public function theQueueIsEmpty($queue)
+    {
+    }
+
+    /**
      * @When I send a message to queue :queue
      */
     public function iSendAMessageToQueue($queue, PyStringNode $string)
