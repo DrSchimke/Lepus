@@ -35,7 +35,7 @@ class LepusExtension implements Extension
      */
     public function getConfigKey()
     {
-        return 'foo';
+        return 'lepus';
     }
 
     /**
@@ -59,6 +59,15 @@ class LepusExtension implements Extension
      */
     public function configure(ArrayNodeDefinition $builder)
     {
+        $builder
+            ->children()
+            ->scalarNode('host')->defaultValue('localhost')->end()
+            ->scalarNode('port')->defaultValue(5672)->end()
+            ->scalarNode('user')->defaultNull()->end()
+            ->scalarNode('password')->defaultNull()->end()
+            ->scalarNode('vhost')->defaultValue('/')->end()
+            ->end()
+        ;
     }
 
     /**
@@ -70,6 +79,7 @@ class LepusExtension implements Extension
     public function load(ContainerBuilder $container, array $config)
     {
         $definition = $container->register('lepus_initializer', LepusInitializer::class);
+        $definition->addArgument($config);
         $definition->addTag(ContextExtension::INITIALIZER_TAG);
     }
 }

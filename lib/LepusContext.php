@@ -11,104 +11,34 @@
 namespace Lepus;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
+use PhpAmqpLib\Channel\AMQPChannel;
+use PhpAmqpLib\Connection\AMQPConnection;
 
 class LepusContext implements Context
 {
-    private $host;
-    private $port;
-    private $user;
-    private $password;
-    private $vhost;
+    /** @var AMQPConnection */
+    private $connection;
 
-    public function __construct()
-    {
-        var_dump(__METHOD__);
-    }
+    /** @var AMQPChannel */
+    private $channel;
 
-    public function __destruct()
-    {
-        var_dump(__METHOD__);
-    }
-
+    /**
+     * @param string $host
+     * @param int $port
+     * @param string $user
+     * @param string $password
+     * @param string $vhost
+     */
     public function init($host, $port, $user, $password, $vhost)
     {
-        var_dump(__METHOD__);
-        $this->host = $host;
-        $this->port = $port;
-        $this->user = $user;
-        $this->password = $password;
-        $this->vhost = $vhost;
+        $this->connection = new AMQPConnection($host, $port, $user, $password, $vhost);
+        $this->channel = $this->connection->channel();
     }
-
     /**
-     * @BeforeSuite
+     * @Then there a queue :queue
      */
-    public static function beforeSuite()
+    public function thereAQueue($queue)
     {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @AfterSuite
-     */
-    public static function afterSuite()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @BeforeScenario
-     */
-    public function beforeScenario()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @AfterScenario
-     */
-    public function afterScenario()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @BeforeFeature
-     */
-    public static function beforeFeature()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @AfterFeature
-     */
-    public static function afterFeature()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @BeforeStep
-     */
-    public function beforeStep()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @AfterStep
-     */
-    public function afterStep()
-    {
-        //var_dump(__METHOD__);
-    }
-
-    /**
-     * @Then /^there is a new "([^"]*)"$/
-     */
-    public function thereIsANew($arg1)
-    {
+        $this->channel->queue_declare($queue);
     }
 }
