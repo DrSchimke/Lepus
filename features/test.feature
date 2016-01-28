@@ -1,4 +1,12 @@
 Feature: Testing stuff
 
   Scenario:
-    Then there a queue "test"
+    Given there is a queue "test"
+    When I send a message to queue "test"
+    """
+     foo bar bla blubb
+    """
+    Then there should be a message in queue "test"
+    """
+     foo bar bla blubb
+    """

@@ -7,6 +7,6 @@ default:
         - FeatureContext
   extensions:
     Lepus\LepusExtension:
-      host: kx-01.dvl.local
+      host: localhost
       user: admin
       password: admin
