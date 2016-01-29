@@ -7,5 +7,5 @@ default:
   extensions:
     Lepus\LepusExtension:
       host: localhost
-      user: admin
-      password: admin
+      user: guest
+      password: guest
