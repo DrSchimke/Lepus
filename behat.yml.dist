@@ -4,7 +4,6 @@ default:
       path: %paths.base%/features
       contexts:
         - Lepus\LepusContext
-        - FeatureContext
   extensions:
     Lepus\LepusExtension:
       host: localhost
