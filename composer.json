@@ -1,6 +1,14 @@
 {
     "name": "lepus/lepus",
     "description": "Behat extention for RabbitMQ",
+    "keywords": [
+        "behat",
+        "bdd",
+        "mq",
+        "message queue",
+        "rabbitmq",
+        "amqp"
+    ],
     "type": "library",
     "license": "MIT",
     "require": {
