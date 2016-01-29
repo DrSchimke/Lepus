@@ -15,6 +15,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use PhpAmqpLib\Channel\AMQPChannel;
 use PhpAmqpLib\Connection\AMQPConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Sci\Assert\Assert;
 
 class LepusContext implements Context
 {
@@ -86,9 +87,7 @@ class LepusContext implements Context
             $consumer = function (AMQPMessage $message) use ($expected) {
                 $this->channel->basic_ack($message->delivery_info['delivery_tag']);
 
-                if ($message->body != $expected) {
-                    throw new \Exception(sprintf('Received message: %s', $message->body));
-                }
+                Assert::that($message->body)->equal($expected);
             };
             $this->channel->basic_consume($queue, '', false, false, false, false, $consumer);
         }
