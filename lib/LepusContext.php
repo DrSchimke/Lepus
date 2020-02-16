@@ -89,8 +89,8 @@ class LepusContext implements Context
 
                 Assert::that($message->body)->equal($expected);
             };
-            $this->channel->basic_consume($queue, '', false, false, false, false, $consumer);
+            $this->channel->basic_consume($queue, '', false, true, false, false, $consumer);
         }
-        $this->channel->wait(null, true, 4);
+        $this->channel->wait(null, false, 4);
     }
 }

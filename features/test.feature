@@ -12,7 +12,6 @@ Feature: Testing stuff
      foo bar bla blubb
     """
 
-
   Scenario:
     Given there is a queue "test"
     And the queue "test" is empty
