@@ -13,8 +13,8 @@
     "license": "MIT",
     "require": {
         "behat/behat": "^3.0",
-        "videlalvaro/php-amqplib": "^2.6",
-        "sci/assert": "^1.0"
+        "sci/assert": "^1.0",
+        "php-amqplib/php-amqplib": "^2.11"
     },
     "autoload": {
         "psr-4": {

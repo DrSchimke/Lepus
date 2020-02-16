@@ -13,13 +13,13 @@ namespace Lepus;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use PhpAmqpLib\Channel\AMQPChannel;
-use PhpAmqpLib\Connection\AMQPConnection;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use Sci\Assert\Assert;
 
 class LepusContext implements Context
 {
-    /** @var AMQPConnection */
+    /** @var AMQPStreamConnection */
     private $connection;
 
     /** @var AMQPChannel */
@@ -34,7 +34,7 @@ class LepusContext implements Context
      */
     public function init($host, $port, $user, $password, $vhost)
     {
-        $this->connection = new AMQPConnection($host, $port, $user, $password, $vhost);
+        $this->connection = new AMQPStreamConnection($host, $port, $user, $password, $vhost);
         $this->channel = $this->connection->channel();
     }
 
@@ -59,6 +59,11 @@ class LepusContext implements Context
      */
     public function theQueueIsEmpty($queue)
     {
+        try {
+            $this->channel->queue_purge($queue);
+        } catch (\Exception $e) {
+            $this->channel = $this->connection->channel();
+        }
     }
 
     /**
@@ -89,7 +94,7 @@ class LepusContext implements Context
 
                 Assert::that($message->body)->equal($expected);
             };
-            $this->channel->basic_consume($queue, '', false, false, false, false, $consumer);
+            $this->channel->basic_consume($queue, '', false, true, false, false, $consumer);
         }
         $this->channel->wait(null, false, 4);
     }
