@@ -59,6 +59,11 @@ class LepusContext implements Context
      */
     public function theQueueIsEmpty($queue)
     {
+        try {
+            $this->channel->queue_purge($queue);
+        } catch (\Exception $e) {
+            $this->channel = $this->connection->channel();
+        }
     }
 
     /**
