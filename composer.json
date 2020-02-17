@@ -14,7 +14,7 @@
     "require": {
         "behat/behat": "^3.0",
         "sci/assert": "^1.0",
-        "php-amqplib/php-amqplib": "^2.11"
+        "php-amqplib/php-amqplib": "^2.9"
     },
     "autoload": {
         "psr-4": {
