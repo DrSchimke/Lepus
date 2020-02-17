@@ -5,11 +5,6 @@ language: php
 services:
   - rabbitmq
 
-addons:
-  apt:
-    packages:
-      - rabbitmq-server
-
 cache:
     directories:
         - $HOME/.composer/cache/files
@@ -24,6 +19,7 @@ php:
   - 7.3
   - 7.4
   - nightly
+  - hhvm
 
 before_install:
   - composer self-update
