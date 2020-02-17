@@ -18,7 +18,7 @@ php:
   - 7.3
   - 7.4
   - nightly
-  - hhvm
+  - hhvm-3.18
 
 before_install:
   - composer self-update
